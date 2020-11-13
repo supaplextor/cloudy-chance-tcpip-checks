@@ -1,0 +1,28 @@
+supaplex@srx1400> show route 8.8.8.8 
+
+inet.0: 9 destinations, 10 routes (8 active, 0 holddown, 1 hidden)
++ = Active Route, - = Last Active, * = Both
+
+0.0.0.0/0          *[Access-internal/12] 9w1d 11:45:25
+                    > to 47.215.176.1 via ge-0/0/0.0
+
+supaplex@srx1400> show route forwarding-table destination 8.8.8.8 
+Routing table: default.inet
+Internet:
+Destination        Type RtRef Next hop           Type Index NhRef Netif
+default            user     0 0:ca:e5:c9:1c:19   ucst  1351     3 ge-0/0/0.0
+default            perm     0                    rjct    36     1
+
+Routing table: __master.anon__.inet
+Internet:
+Destination        Type RtRef Next hop           Type Index NhRef Netif
+default            perm     0                    rjct  1302     1
+
+supaplex@srx1400> show arp interface ge-0/0/0.0 no-resolve 
+MAC Address       Address         Interface     Flags
+00:ca:e5:c9:1c:19 47.215.176.1    ge-0/0/0.0           none
+
+# https://hwaddress.com/oui-iab/00-CA-E5/ - Cisco Systems on the other end. (Ethernet wise).
+
+supaplex@srx1400> show interfaces extensive ge-0/0/0 | match flap 
+  Last flapped   : 2020-09-09 16:56:39 MST (9w1d 14:07 ago)
